@@ -1,8 +1,9 @@
 version: '3.8'
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:16-alpine # ล็อคเวอร์ชันที่เสถียร
     container_name: my_db_server
+    restart: always
     environment:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
@@ -10,16 +11,20 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres-data:/var/lib/postgresql
+      - postgres-data:/var/lib/postgresql/data # แก้ path ให้ถูกต้อง ข้อมูลจะได้ไม่หาย
     networks:
       - app-network
 
   pgadmin:
     image: dpage/pgadmin4
     container_name: my_pgadmin
+    restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: root
+      # แก้ปัญหา CSRF ที่เราเจอโดยการปิดการเช็ค Master Password เบื้องต้น
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
     ports:
       - "5050:80"
     depends_on:
