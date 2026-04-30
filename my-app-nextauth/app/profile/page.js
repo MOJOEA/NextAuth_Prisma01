@@ -20,9 +20,7 @@ export default function Profile() {
     session.user && (
       <div className="flex h-screen items-center justify-center">
         <div className="bg-white p-6 rounded-md shadow-md">
-          <p>
-            Welcome, <b>{session.user.name}!</b>
-          </p>
+          <p>Welcome, <b>{session.user.name}!</b></p>
           <p>Email: {session.user.email}</p>
           <p>Role: {session.user.role}</p>
           <button
