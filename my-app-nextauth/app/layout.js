@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google'
-import { getServerSession } from 'next-auth'
 
+import { getServerSession } from 'next-auth'
 import SessionProvider from './components/SessionProvider'
 import './globals.css'
 
